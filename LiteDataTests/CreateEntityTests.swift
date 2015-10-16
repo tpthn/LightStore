@@ -11,39 +11,36 @@ import CoreData
 @testable import LiteData
 
 class CreateEntityTest: XCTestCase {
-
-  func testCreateEntity() {
-    let rootContext = LiteData.sharedInstance.rootContext
-    let expectation = self.expectationWithDescription("Create Entity")
-    
-    guard let unitTestEntity = NSEntityDescription.entityForName("UnitTest", inManagedObjectContext: rootContext) else {
-      XCTFail()
-      return
-    }
-    
-    let fetchRequest = NSFetchRequest()
-    fetchRequest.entity = unitTestEntity
-    var itemCount = 0
+  
+  override func setUp() {
+    super.setUp()
     
     // make sure we come from empty state
-    rootContext.performBlock { [weak rootContext] in
+    context.performBlockAndWait { [weak self, fetchRequest] in
       do {
-        guard let fetchResults = try rootContext?.executeFetchRequest(fetchRequest) else { XCTFail(); return }
-        itemCount = fetchResults.count
+        guard let fetchResults = try self?.context.executeFetchRequest(fetchRequest) else { XCTFail(); return }
+        self?.fetchCount = fetchResults.count
       }
       catch { XCTFail() }
     }
+  }
+  
+  override func tearDown() {
+    super.tearDown()
+  }
+  
+  func testCreateEntity() {
+    let expectation = self.expectationWithDescription("Create Entity Asynchronously")
     
-    // create the entity
-    rootContext.createEntity(UnitTest.self) { createdEntity in
-      createdEntity.name = "Create Entity"
+    context.createEntity(UnitTest.self) { createdEntity in
+      createdEntity.name = "Create Entity Asynchronous"
     }
     
     // verify
-    rootContext.performBlock { [weak rootContext] in
+    context.performBlock { [weak self, fetchRequest, fetchCount] in
       do {
-        guard let fetchResults = try rootContext?.executeFetchRequest(fetchRequest) else { XCTFail(); return }
-        XCTAssertTrue(fetchResults.count == (itemCount + 1))
+        guard let fetchResults = try self?.context.executeFetchRequest(fetchRequest) else { XCTFail(); return }
+        XCTAssertTrue(fetchResults.count == (fetchCount + 1))
         expectation.fulfill()
       }
       catch { XCTFail() }
@@ -53,6 +50,31 @@ class CreateEntityTest: XCTestCase {
   }
   
   func testCreateEntityAndWait() {
-  
+    
+    context.createEntityAndWait(UnitTest.self) { createdEntity in
+      createdEntity.name = "Create Entity Asynchronous"
+    }
+    
+    do {
+      let fetchResults = try context.executeFetchRequest(fetchRequest)
+      XCTAssertTrue(fetchResults.count == (fetchCount + 1))
+    }
+    catch { XCTFail() }
   }
+  
+  // MARK: - Private
+  let context = LiteData.sharedInstance.rootContext
+  
+  lazy var testEntity: NSEntityDescription = {
+    let _testEntity = NSEntityDescription.entityForName("UnitTest", inManagedObjectContext: self.context)!
+    return _testEntity
+    }()
+  
+  lazy var fetchRequest: NSFetchRequest = {
+    let _fetchRequest = NSFetchRequest()
+    _fetchRequest.entity = self.testEntity
+    return _fetchRequest
+    }()
+  
+  var fetchCount = 0
 }
