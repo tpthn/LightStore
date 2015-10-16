@@ -31,7 +31,7 @@ class LiteData {
   var storeType = NSSQLiteStoreType
   
   lazy var storeURL: NSURL = {
-    let urls = NSFileManager.defaultManager().URLsForDirectory(.ApplicationSupportDirectory, inDomains: .UserDomainMask)
+    let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
     let directoryURL = urls[urls.count-1]
     let applicationName = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleName") as! String
     let _storeURL = directoryURL.URLByAppendingPathComponent("\(applicationName).sqlite")
