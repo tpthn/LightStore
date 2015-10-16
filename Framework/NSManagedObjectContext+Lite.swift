@@ -10,5 +10,12 @@ import Foundation
 import CoreData
 
 extension NSManagedObjectContext {
-
+  static let childName = "com.litedata.write.context.child"
+  
+  class func childContextWithParent(parentContext: NSManagedObjectContext, name: String? = childName) -> NSManagedObjectContext {
+    let context = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+    context.parentContext = parentContext
+    context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+    return context
+  }
 }
