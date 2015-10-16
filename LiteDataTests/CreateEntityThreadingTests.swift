@@ -26,7 +26,7 @@ class CreateEntityThreadingTests: XCTestCase {
     context = LiteData.sharedInstance.writeContext()
     
     context.createEntity(UnitTest.self, persisted: false) { createdEntity in
-      createdEntity.name = "This run on a different thread"
+      print("This run on a different thread")
       XCTAssertFalse(NSThread.isMainThread())
       expectation.fulfill()
     }
@@ -38,7 +38,7 @@ class CreateEntityThreadingTests: XCTestCase {
     context = LiteData.sharedInstance.writeContext()
     
     context.createEntityAndWait(UnitTest.self, persisted: false) { createdEntity in
-      createdEntity.name = "This run on main thread"
+      print("This run on main thread")
       XCTAssertTrue(NSThread.isMainThread())
     }
   }
@@ -49,7 +49,7 @@ class CreateEntityThreadingTests: XCTestCase {
       self.context = LiteData.sharedInstance.writeContext()
       
       self.context.createEntity(UnitTest.self, persisted: false) { createdEntity in
-        createdEntity.name = "Spawn out different thread"
+        print("Spawn out different thread")
         XCTAssertFalse(NSThread.isMainThread())
         expectation.fulfill()
       }
@@ -64,13 +64,37 @@ class CreateEntityThreadingTests: XCTestCase {
       self.context = LiteData.sharedInstance.writeContext()
       
       self.context.createEntityAndWait(UnitTest.self, persisted: false) { createdEntity in
-        createdEntity.name = "Stay on same thread"
+        print("Stay on same thread")
         XCTAssertFalse(NSThread.isMainThread())
         expectation.fulfill()
       }
     })
     
     waitForExpectationsWithTimeout(5, handler: nil)
+  }
+  
+  // MARK: - Abnormal Behavior - Main context should be for read-only
+  
+  func testMainContextWriteAsync() {
+    let expectation = self.expectationWithDescription("Main Context Write Async")
+    context = LiteData.sharedInstance.mainContext
+    
+    context.createEntity(UnitTest.self, persisted: false) { createdEntity in
+      print("This run on main thread anyway")
+      XCTAssertTrue(NSThread.isMainThread())
+      expectation.fulfill()
+    }
+    
+    waitForExpectationsWithTimeout(5, handler: nil)
+  }
+  
+  func testMainContextWriteSync() {
+    context = LiteData.sharedInstance.mainContext
+    
+    context.createEntityAndWait(UnitTest.self, persisted: false) { createdEntity in
+      print("This also run on main thread")
+      XCTAssertTrue(NSThread.isMainThread())
+    }
   }
   
   // MARK: - Private
