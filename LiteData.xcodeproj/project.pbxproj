@@ -18,6 +18,7 @@
 		4F8897351BD08DD60010382C /* LiteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897341BD08DD60010382C /* LiteData.swift */; settings = {ASSET_TAGS = (); }; };
 		4F8897371BD08E180010382C /* NSManagedObject+Lite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897361BD08E180010382C /* NSManagedObject+Lite.swift */; settings = {ASSET_TAGS = (); }; };
 		4F8897391BD08E420010382C /* NSManagedObjectContext+Lite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897381BD08E420010382C /* NSManagedObjectContext+Lite.swift */; settings = {ASSET_TAGS = (); }; };
+		4F88973C1BD0B0450010382C /* ClassDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F88973B1BD0B0450010382C /* ClassDescriptor.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		4F8897341BD08DD60010382C /* LiteData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiteData.swift; sourceTree = "<group>"; };
 		4F8897361BD08E180010382C /* NSManagedObject+Lite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Lite.swift"; sourceTree = "<group>"; };
 		4F8897381BD08E420010382C /* NSManagedObjectContext+Lite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Lite.swift"; sourceTree = "<group>"; };
+		4F88973B1BD0B0450010382C /* ClassDescriptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassDescriptor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 				4F8897341BD08DD60010382C /* LiteData.swift */,
 				4F8897361BD08E180010382C /* NSManagedObject+Lite.swift */,
 				4F8897381BD08E420010382C /* NSManagedObjectContext+Lite.swift */,
+				4F88973B1BD0B0450010382C /* ClassDescriptor.swift */,
 			);
 			path = Framework;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F88973C1BD0B0450010382C /* ClassDescriptor.swift in Sources */,
 				4F8897051BD08D020010382C /* ViewController.swift in Sources */,
 				4F8897351BD08DD60010382C /* LiteData.swift in Sources */,
 				4F8897031BD08D020010382C /* AppDelegate.swift in Sources */,
