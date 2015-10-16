@@ -15,6 +15,9 @@
 		4F8897101BD08D020010382C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F88970E1BD08D020010382C /* LaunchScreen.storyboard */; };
 		4F88971B1BD08D020010382C /* LiteDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F88971A1BD08D020010382C /* LiteDataTests.swift */; };
 		4F8897261BD08D020010382C /* LiteDataUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897251BD08D020010382C /* LiteDataUITests.swift */; };
+		4F8897351BD08DD60010382C /* LiteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897341BD08DD60010382C /* LiteData.swift */; settings = {ASSET_TAGS = (); }; };
+		4F8897371BD08E180010382C /* NSManagedObject+Lite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897361BD08E180010382C /* NSManagedObject+Lite.swift */; settings = {ASSET_TAGS = (); }; };
+		4F8897391BD08E420010382C /* NSManagedObjectContext+Lite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897381BD08E420010382C /* NSManagedObjectContext+Lite.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		4F8897211BD08D020010382C /* LiteDataUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiteDataUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F8897251BD08D020010382C /* LiteDataUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiteDataUITests.swift; sourceTree = "<group>"; };
 		4F8897271BD08D020010382C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4F8897341BD08DD60010382C /* LiteData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiteData.swift; sourceTree = "<group>"; };
+		4F8897361BD08E180010382C /* NSManagedObject+Lite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObject+Lite.swift"; sourceTree = "<group>"; };
+		4F8897381BD08E420010382C /* NSManagedObjectContext+Lite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+Lite.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +85,7 @@
 		4F8896F61BD08D010010382C = {
 			isa = PBXGroup;
 			children = (
+				4F8897331BD08D570010382C /* Framework */,
 				4F8897011BD08D020010382C /* LiteData */,
 				4F8897191BD08D020010382C /* LiteDataTests */,
 				4F8897241BD08D020010382C /* LiteDataUITests */,
@@ -126,6 +133,16 @@
 				4F8897271BD08D020010382C /* Info.plist */,
 			);
 			path = LiteDataUITests;
+			sourceTree = "<group>";
+		};
+		4F8897331BD08D570010382C /* Framework */ = {
+			isa = PBXGroup;
+			children = (
+				4F8897341BD08DD60010382C /* LiteData.swift */,
+				4F8897361BD08E180010382C /* NSManagedObject+Lite.swift */,
+				4F8897381BD08E420010382C /* NSManagedObjectContext+Lite.swift */,
+			);
+			path = Framework;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,7 +276,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F8897051BD08D020010382C /* ViewController.swift in Sources */,
+				4F8897351BD08DD60010382C /* LiteData.swift in Sources */,
 				4F8897031BD08D020010382C /* AppDelegate.swift in Sources */,
+				4F8897391BD08E420010382C /* NSManagedObjectContext+Lite.swift in Sources */,
+				4F8897371BD08E180010382C /* NSManagedObject+Lite.swift in Sources */,
 				4F88970B1BD08D020010382C /* LiteData.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
