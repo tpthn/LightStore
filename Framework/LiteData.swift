@@ -75,4 +75,9 @@ class LiteData {
     _mainContext.undoManager = nil
     return _mainContext
     }()
+  
+  func writeContext(id: String = "com.litedata.write.context.child") -> NSManagedObjectContext {
+    let childContext = NSManagedObjectContext.childContextWithParent(self.rootContext, name: id)
+    return childContext
+  }
 }

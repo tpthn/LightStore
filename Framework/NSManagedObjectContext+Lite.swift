@@ -11,7 +11,7 @@ import CoreData
 
 extension NSManagedObjectContext {
   
-  class func childContextWithParent(parentContext: NSManagedObjectContext, name: String = "com.litedata.write.context.child") -> NSManagedObjectContext {
+  class func childContextWithParent(parentContext: NSManagedObjectContext, name: String) -> NSManagedObjectContext {
     let context = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
     context.name = name
     context.parentContext = parentContext
