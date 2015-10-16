@@ -40,6 +40,14 @@ extension NSManagedObjectContext {
       self?.createEntityUnSafe(entityClass, persisted: persisted, setValue: setValue)
     }
   }
+  
+  func editEntity<T: NSManagedObject>(entity: T, persisted: Bool = true, setValue: ((editingEntity: T) -> ())? ) {
+    
+  }
+  
+  func deleteEntity<T: NSManagedObject>(entity: T) {
+    
+  }
 }
 
 // MARK: Synchronous API
@@ -51,6 +59,14 @@ extension NSManagedObjectContext {
     self.performBlockAndWait { [weak self] in
       self?.createEntityUnSafe(entityClass, persisted: persisted, setValue: setValue)
     }
+  }
+  
+  func editEntityAndWait<T: NSManagedObject>(entity: T, persisted: Bool = true, setValue: ((editingEntity: T) -> ())? ) {
+    
+  }
+  
+  func deleteEntityAndWait<T: NSManagedObject>(entity: T) {
+    
   }
 }
 
@@ -72,5 +88,13 @@ extension NSManagedObjectContext {
     if persisted {
       self.recursiveSave()
     }
+  }
+  
+  private func editEntityUnsafe<T: NSManagedObject>(entity: T, persisted: Bool = true, setValue: ((editingEntity: T) -> ())? ) {
+    
+  }
+  
+  private func deleteEntityUnsafe<T: NSManagedObject>(entity: T) {
+  
   }
 }
