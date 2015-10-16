@@ -22,6 +22,7 @@
 		4F8897411BD0B7720010382C /* UnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F88973F1BD0B7720010382C /* UnitTest.swift */; settings = {ASSET_TAGS = (); }; };
 		4F8897461BD0B8B00010382C /* CreateEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897451BD0B8B00010382C /* CreateEntityTests.swift */; settings = {ASSET_TAGS = (); }; };
 		4F8897481BD0B9290010382C /* ClassDescriptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897471BD0B9290010382C /* ClassDescriptorTests.swift */; settings = {ASSET_TAGS = (); }; };
+		4F88974A1BD0CB220010382C /* CreateEntityThreadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897491BD0CB220010382C /* CreateEntityThreadingTests.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		4F88973F1BD0B7720010382C /* UnitTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitTest.swift; sourceTree = "<group>"; };
 		4F8897451BD0B8B00010382C /* CreateEntityTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateEntityTests.swift; sourceTree = "<group>"; };
 		4F8897471BD0B9290010382C /* ClassDescriptorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassDescriptorTests.swift; sourceTree = "<group>"; };
+		4F8897491BD0CB220010382C /* CreateEntityThreadingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateEntityThreadingTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 			children = (
 				4F8897471BD0B9290010382C /* ClassDescriptorTests.swift */,
 				4F8897451BD0B8B00010382C /* CreateEntityTests.swift */,
+				4F8897491BD0CB220010382C /* CreateEntityThreadingTests.swift */,
 				4F88971C1BD08D020010382C /* Info.plist */,
 			);
 			path = LiteDataTests;
@@ -313,6 +316,7 @@
 			files = (
 				4F8897481BD0B9290010382C /* ClassDescriptorTests.swift in Sources */,
 				4F8897461BD0B8B00010382C /* CreateEntityTests.swift in Sources */,
+				4F88974A1BD0CB220010382C /* CreateEntityThreadingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

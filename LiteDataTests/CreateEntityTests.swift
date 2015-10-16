@@ -46,7 +46,7 @@ class CreateEntityTest: XCTestCase {
       catch { XCTFail() }
     }
     
-    self.waitForExpectationsWithTimeout(5, handler: nil)
+    waitForExpectationsWithTimeout(5, handler: nil)
   }
   
   func testCreateEntityAndWait() {
