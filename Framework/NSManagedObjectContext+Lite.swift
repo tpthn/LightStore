@@ -34,7 +34,7 @@ extension NSManagedObjectContext {
 
 extension NSManagedObjectContext {
   
-  func createEntity<T: NSManagedObject>(entityClass: T.Type, persisted: Bool = true, setValue: ((createdEntity: T) -> ())? ) {
+  func createEntity<T: NSManagedObject>(entityClass: T.Type, persisted: Bool = true, setValue: ((creatingEntity: T) -> ())? ) {
     
     self.performBlock { [weak self] in
       self?.createEntityUnSafe(entityClass, persisted: persisted, setValue: setValue)
@@ -43,10 +43,16 @@ extension NSManagedObjectContext {
   
   func editEntity<T: NSManagedObject>(entity: T, persisted: Bool = true, setValue: ((editingEntity: T) -> ())? ) {
     
+    self.performBlock { [weak self] in
+      self?.editEntityUnsafe(entity, persisted: persisted, setValue: setValue)
+    }
   }
   
-  func deleteEntity<T: NSManagedObject>(entity: T) {
+  func deleteEntity<T: NSManagedObject>(entity: T, persisted: Bool) {
     
+    self.performBlock { [weak self] in
+      self?.deleteEntityUnsafe(entity, persisted: persisted)
+    }
   }
 }
 
@@ -54,7 +60,7 @@ extension NSManagedObjectContext {
 
 extension NSManagedObjectContext {
 
-  func createEntityAndWait<T: NSManagedObject>(entityClass: T.Type, persisted: Bool = true, setValue: ((createdEntity: T) -> ())? ) {
+  func createEntityAndWait<T: NSManagedObject>(entityClass: T.Type, persisted: Bool = true, setValue: ((creatingEntity: T) -> ())? ) {
     
     self.performBlockAndWait { [weak self] in
       self?.createEntityUnSafe(entityClass, persisted: persisted, setValue: setValue)
@@ -63,10 +69,16 @@ extension NSManagedObjectContext {
   
   func editEntityAndWait<T: NSManagedObject>(entity: T, persisted: Bool = true, setValue: ((editingEntity: T) -> ())? ) {
     
+    self.performBlockAndWait { [weak self] in
+      self?.editEntityUnsafe(entity, persisted: persisted, setValue: setValue)
+    }
   }
   
-  func deleteEntityAndWait<T: NSManagedObject>(entity: T) {
+  func deleteEntityAndWait<T: NSManagedObject>(entity: T, persisted: Bool = true) {
     
+    self.performBlockAndWait { [weak self] in
+      self?.deleteEntityUnsafe(entity, persisted: persisted)
+    }
   }
 }
 
@@ -74,7 +86,7 @@ extension NSManagedObjectContext {
 
 extension NSManagedObjectContext {
   
-  private func createEntityUnSafe<T: NSManagedObject>(entityClass: T.Type, persisted: Bool = true, setValue: ((createdEntity: T) -> ())? ) {
+  private func createEntityUnSafe<T: NSManagedObject>(entityClass: T.Type, persisted: Bool = true, setValue: ((creatingEntity: T) -> ())? ) {
     
     let entityName = ClassDescriptor<T>().className
     guard let entityDescription = NSEntityDescription.entityForName(entityName, inManagedObjectContext: self) else { return }
@@ -82,7 +94,7 @@ extension NSManagedObjectContext {
     let entity = T(entity: entityDescription, insertIntoManagedObjectContext: self)
     
     if let setValueBlock = setValue {
-      setValueBlock(createdEntity: entity)
+      setValueBlock(creatingEntity: entity)
     }
     
     if persisted {
@@ -92,9 +104,30 @@ extension NSManagedObjectContext {
   
   private func editEntityUnsafe<T: NSManagedObject>(entity: T, persisted: Bool = true, setValue: ((editingEntity: T) -> ())? ) {
     
+    guard let localEntity = self.objectRegisteredForID(entity.objectID) else {
+      //TODO: handle non registered objects
+      return;
+    }
+    
+    if let setValueBlock = setValue {
+      setValueBlock(editingEntity: (localEntity as! T))
+    }
+    
+    if persisted {
+      self.recursiveSave()
+    }
   }
   
-  private func deleteEntityUnsafe<T: NSManagedObject>(entity: T) {
-  
+  private func deleteEntityUnsafe<T: NSManagedObject>(entity: T, persisted: Bool = true) {
+    guard let localEntity = self.objectRegisteredForID(entity.objectID) else {
+      //TODO: handle non registered objects
+      return;
+    }
+    
+    self.deleteObject(localEntity)
+    
+    if persisted {
+      self.recursiveSave()
+    }
   }
 }
