@@ -95,6 +95,37 @@ class CreateEntityThreadingTests: XCTestCase {
       print("This also run on main thread")
       XCTAssertTrue(NSThread.isMainThread())
     }
+    
+    /*
+      LiteData.entity(UnitTest.self).add({creatingEntity in
+        // entity property goes here
+      }).persist({ createdEntity, status in
+        // handle newly created entity and / or error here
+      })
+    
+      LiteData.entity(someObject).edit({editingEntity in
+        // entity property goes here
+      }).persist({ editedEntity, status in
+        // handle edited entity and / or error here
+      })
+    
+      LiteData.entity(someObject).delete({ status in
+    
+      })
+    
+      LiteData.readEntity(UnitTest.self).fetch(predicateFormat) { results in
+    
+      }
+    
+      LiteData.readEntity(UnitTest.self).fetchOne(predicateFormat)
+    
+      let entity = LiteData.readEntity(UnitTest.self)
+      entity.sort(sortDescriptor)
+      entity.batch(10)
+      entity.fetch(predicateFormat) {results in
+    
+      }
+    */
   }
   
   // MARK: - Private
