@@ -23,6 +23,7 @@
 		4F8897461BD0B8B00010382C /* CreateEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897451BD0B8B00010382C /* CreateEntityTests.swift */; settings = {ASSET_TAGS = (); }; };
 		4F8897481BD0B9290010382C /* ClassDescriptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897471BD0B9290010382C /* ClassDescriptorTests.swift */; settings = {ASSET_TAGS = (); }; };
 		4F88974A1BD0CB220010382C /* CreateEntityThreadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897491BD0CB220010382C /* CreateEntityThreadingTests.swift */; settings = {ASSET_TAGS = (); }; };
+		4FF25D2B1BD75F820056C4D4 /* DataEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF25D2A1BD75F820056C4D4 /* DataEntity.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		4F8897451BD0B8B00010382C /* CreateEntityTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateEntityTests.swift; sourceTree = "<group>"; };
 		4F8897471BD0B9290010382C /* ClassDescriptorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassDescriptorTests.swift; sourceTree = "<group>"; };
 		4F8897491BD0CB220010382C /* CreateEntityThreadingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateEntityThreadingTests.swift; sourceTree = "<group>"; };
+		4FF25D2A1BD75F820056C4D4 /* DataEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataEntity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 				4F8897361BD08E180010382C /* NSManagedObject+Lite.swift */,
 				4F8897381BD08E420010382C /* NSManagedObjectContext+Lite.swift */,
 				4F88973B1BD0B0450010382C /* ClassDescriptor.swift */,
+				4FF25D2A1BD75F820056C4D4 /* DataEntity.swift */,
 			);
 			path = Framework;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				4F8897401BD0B7720010382C /* UnitTest+CoreDataProperties.swift in Sources */,
 				4F8897411BD0B7720010382C /* UnitTest.swift in Sources */,
 				4F8897371BD08E180010382C /* NSManagedObject+Lite.swift in Sources */,
+				4FF25D2B1BD75F820056C4D4 /* DataEntity.swift in Sources */,
 				4F88970B1BD08D020010382C /* LiteData.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

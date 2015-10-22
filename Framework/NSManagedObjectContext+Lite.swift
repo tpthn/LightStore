@@ -22,11 +22,15 @@ extension NSManagedObjectContext {
   func recursiveSave() {
     if self.hasChanges {
       do {
-        try self.save()
+        try self.attemptRecursiveSave()
       } catch {
         print("Error saving: \(error as NSError)")
       }
     }
+  }
+  
+  func attemptRecursiveSave() throws {
+    try self.save()
   }
 }
 

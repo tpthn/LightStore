@@ -81,3 +81,21 @@ class LiteData {
     return childContext
   }
 }
+
+
+
+extension LiteData {
+  func entity<T: NSManagedObject>(entity: T) -> DataEntity<T> {
+    let dataEntity = DataEntity<T>(entity: entity)
+    dataEntity.destinationContext = self.writeContext()
+    
+    return dataEntity
+  }
+  
+  func entity<T: NSManagedObject>(entityClass: T.Type) -> DataEntity<T> {
+    let dataEntity = DataEntity<T>(entityClass: entityClass)
+    dataEntity.destinationContext = self.writeContext()
+    
+    return dataEntity
+  }
+}
