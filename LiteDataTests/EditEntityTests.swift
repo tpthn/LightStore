@@ -17,13 +17,43 @@ class EditEntityTests: XCTestCase {
     super.setUp()
     
     // make sure we come from empty state
-    context.performBlockAndWait { [weak self, fetchRequest] in
+    context.performBlockAndWait { [weak self, unowned fetchRequest, unowned context] in
       do {
         guard let fetchResults = try self?.context.executeFetchRequest(fetchRequest) else { XCTFail(); return }
-        self?.fetchCount = fetchResults.count
+        self?.unitTest = (fetchResults as? Array)?.first
+        self?.unitTest?.name = "Initial Name"
+        context.safeSave()
       }
       catch { XCTFail() }
     }
+  }
+  
+  override func tearDown() {
+    super.tearDown()
+  }
+
+  func testEditEntity() {
+    
+    let expectation = self.expectationWithDescription("Edit Entity Asynchronously")
+    
+    guard let _unitTest = unitTest else { XCTFail(); return }
+    context.editEntity(_unitTest) { editingEntity in
+      _unitTest.name = "Edit Entity Asynchronously"
+    }
+    
+    // verify
+    context.performBlock { [weak self, fetchRequest] in
+      do {
+        guard let fetchResults = try self?.context.executeFetchRequest(fetchRequest) else { XCTFail(); return }
+        guard let editedUnitTest: UnitTest = (fetchResults as? Array)?.first else { XCTFail(); return }
+        
+        XCTAssertEqual(editedUnitTest.name, "Edit Entity Asynchronously")
+        expectation.fulfill()
+      }
+      catch { XCTFail() }
+    }
+    
+    waitForExpectationsWithTimeout(30, handler: nil)
   }
   
   // MARK: - Private
@@ -39,6 +69,4 @@ class EditEntityTests: XCTestCase {
     _fetchRequest.entity = self.testEntity
     return _fetchRequest
     }()
-  
-  var fetchCount = 0
 }

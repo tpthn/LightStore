@@ -12,6 +12,8 @@ import CoreData
 
 class CreateEntityTest: XCTestCase {
   
+  var fetchCount = 0
+  
   override func setUp() {
     super.setUp()
     
@@ -30,6 +32,7 @@ class CreateEntityTest: XCTestCase {
   }
   
   func testCreateEntity() {
+    
     let expectation = self.expectationWithDescription("Create Entity Asynchronously")
     
     context.createEntity(UnitTest.self) { createdEntity in
@@ -55,11 +58,13 @@ class CreateEntityTest: XCTestCase {
       createdEntity.name = "Create Entity Asynchronous"
     }
     
-    do {
-      let fetchResults = try context.executeFetchRequest(fetchRequest)
-      XCTAssertTrue(fetchResults.count == (fetchCount + 1))
+    context.performBlockAndWait { [unowned self] in
+      do {
+        let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
+        XCTAssertTrue(fetchResults.count == (self.fetchCount + 1))
+      }
+      catch { XCTFail() }
     }
-    catch { XCTFail() }
   }
   
   // MARK: - Private
@@ -75,6 +80,4 @@ class CreateEntityTest: XCTestCase {
     _fetchRequest.entity = self.testEntity
     return _fetchRequest
     }()
-  
-  var fetchCount = 0
 }
