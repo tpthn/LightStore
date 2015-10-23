@@ -39,13 +39,46 @@ adventureBook.persist {
 }
 ```
 ##### Read Opearation
+
+- Get one book
+``` Swift
+let tomSawyerBook = LiteData.readEntity(Book.self).fetch(predicate)
+```
+- Get some book
+``` Swift
+let literatureBooks = LiteData.readEntity(Book.self).fetch(predicate)
+```
+- Batching
+``` Swift
+let adventureBooks = LiteData.readEntity(Book.self).batch(10).fetch(predicate)
+```
+
+- Sorting
+``` Swift
+let adventureBooks = LiteData.readEntity(Book.self).sort(sortDescriptor).fetch(predicate)
+```
+
+- Let's try something complicated
+``` Swift
+let readEntity = LiteData.readEntity(Book.self)
+readEntity.batch(10)
+readEntity.sort(sortDescriptor)
+
+let adventureBooks = readEntity.fetch()
+
+\\ Not too bad? :)
+```
+
+##### Observing Changes
+
 TODO:
 
 ##### Note
 - All write operation happens asynchronously and not blocking the main thread.
 - A DataEntity object is returned at the end of any operation during the chain
 - You can call persist with completion closure or simply call persist(). The completion closure is returned on the background thread. You have the option to dispatch_async back to main thread to perform any UI updates.
-- These are just specs at the moment. This is a WORK IN PROGRESS
+- These are just specs at the moment. This is a WORK IN PROGRESS and TENTATIVE TO CHANGE depends on the technical feasibility
  
 ### NSManagedObject Context Layer
+
 TODO:
