@@ -82,18 +82,35 @@ class DataEntity<T: NSManagedObject> {
   
   func persist() {
     destinationContext?.performBlock { [weak destinationContext] in
-      destinationContext?.recursiveSave()
+      destinationContext?.safeSave()
+      if let parentContext = destinationContext?.parentContext where parentContext.hasChanges {
+        parentContext.performBlockAndWait { [weak parentContext] in
+          parentContext?.safeSave()
+        }
+      }
     }
   }
   
   func persist(completion: (persistedEntity: T?, error: NSError?) -> ()) {
     destinationContext?.performBlock({ [weak destinationContext] in
       do {
-        try destinationContext?.attemptRecursiveSave()
+        if let _ = destinationContext?.hasChanges {
+          try destinationContext?.save()
+        }
+        
+        if let parentContext = destinationContext?.parentContext where parentContext.hasChanges {
+          parentContext.performBlockAndWait { [weak parentContext] in
+            do {
+              try parentContext?.save()
+            } catch {
+              completion(persistedEntity: nil, error: error as NSError)
+            }
+          }
+        }
+        
         completion(persistedEntity: self.entity, error: nil)
       } catch {
-        let wrappedError = error as NSError
-        completion(persistedEntity: nil, error: wrappedError)
+        completion(persistedEntity: nil, error: error as NSError)
       }
     })
   }
