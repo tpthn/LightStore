@@ -2,7 +2,7 @@
 A light weight wrapper around core data in swift.
 The goal of this project is to provide different layer of abstraction on top of core data, so that depends on the need we can use a higher level of abstraction for convenient or simply drop down to the next layer to have more interaction and flexibility
 
-### Managed Object Layer
+### Managed Object Layer (TO DO)
 Let's be plain. we don't want to deal with MOC interaction, we don't want to call a custom class to perform core data operation. Sometimes we just want deal with the managed objects themselves. This provide the highest abstraction. Thus it lacks of features such as temporary (unsaved) objects and completion block. However, it gives the best simplicity and very useful for batch operations. 
 
 ##### Write Operation
@@ -45,7 +45,7 @@ LiteData.batchOperation {
 
 TODO:
 
-### LiteData layer
+### LiteData layer (IN PROGRESS)
 This provide the next level of abstraction. We can use this anywhere on main thread for read/write operation without having to worry about the MOC interaction behind the scene. It provides dot notation to chain operations
 
 ##### Write Operation
