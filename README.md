@@ -5,7 +5,7 @@ The goal of this project is to provide different layer of abstraction on top of 
 ### LiteData layer
 This provide the highest abstraction (for now). We can use this anywhere on main thread for read/write operation without having to worry about the MOC interaction behind the scene. It provides dot notation to chain operation
 
-The text inside ## are place holder
+##### Write Operation
 
 - To insert a Book object
 ```Swift
@@ -38,10 +38,14 @@ adventureBook.persist {
   // completion closure
 }
 ```
-###### Note
+##### Read Opearation
+TODO:
+
+##### Note
 - All write operation happens asynchronously and not blocking the main thread.
 - A DataEntity object is returned at the end of any operation during the chain
 - You can call persist with completion closure or simply call persist(). The completion closure is returned on the background thread. You have the option to dispatch_async back to main thread to perform any UI updates.
 - These are just specs at the moment. This is a WORK IN PROGRESS
  
 ### NSManagedObject Context Layer
+TODO:
