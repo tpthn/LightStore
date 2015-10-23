@@ -9,9 +9,9 @@ The text inside ## are place holder
 
 - To insert a Book object
 ```Swift
-LiteData.entity(Book).add({ creatingBook in
+LiteData.entity(Book.self).add({ creatingBook in
   creatingBook.title = "A mid summer night dream"
-  creatingBook.author = "Sharespear"
+  creatingBook.author = "Shakespear"
 }).persist()
 ```
 - Then edit it
@@ -22,13 +22,13 @@ LiteData.entity(shakespearBook).edit({ editingBook in
 ```
 - And if we want to delete it.
 ```Swift
-LiteData.entity(sharespearBook).delete().persist {
+LiteData.entity(shakespearBook).delete().persist {
   // completion closure
 }
 ```
 - If we want to just create the object and not persist it immediately, we can store it in a DataEntity variable
 ```Swift
-let adventureBook = LiteData.entity(Book).add { creatingBook in
+let adventureBook = LiteData.entity(Book.self).add { creatingBook in
   creatingBook.title = "The adventure of Tom Sawyer"
   creatingBook.author = "Mark Twain"
 }
