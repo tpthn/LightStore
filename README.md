@@ -40,6 +40,7 @@ LiteData.batchOperation {
     creatingBook.author = author
   }
 }
+```
 
 ##### Read Operation
 
