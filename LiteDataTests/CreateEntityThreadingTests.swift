@@ -26,8 +26,7 @@ class CreateEntityThreadingTests: XCTestCase {
     context = LiteData.sharedInstance.writeContext()
     
     context.createEntity(UnitTest.self, persisted: false) { createdEntity in
-      print("This run on a different thread")
-      XCTAssertFalse(NSThread.isMainThread())
+      XCTAssertFalse(NSThread.isMainThread(), "This should run on a different thread")
       expectation.fulfill()
     }
     
@@ -38,8 +37,7 @@ class CreateEntityThreadingTests: XCTestCase {
     context = LiteData.sharedInstance.writeContext()
     
     context.createEntityAndWait(UnitTest.self, persisted: false) { createdEntity in
-      print("This run on main thread")
-      XCTAssertTrue(NSThread.isMainThread())
+      XCTAssertTrue(NSThread.isMainThread(), "This should run on main thread")
     }
   }
   
@@ -49,8 +47,7 @@ class CreateEntityThreadingTests: XCTestCase {
       self.context = LiteData.sharedInstance.writeContext()
       
       self.context.createEntity(UnitTest.self, persisted: false) { createdEntity in
-        print("Spawn out different thread")
-        XCTAssertFalse(NSThread.isMainThread())
+        XCTAssertFalse(NSThread.isMainThread(), "This should spawn out different thread")
         expectation.fulfill()
       }
     })
@@ -64,8 +61,7 @@ class CreateEntityThreadingTests: XCTestCase {
       self.context = LiteData.sharedInstance.writeContext()
       
       self.context.createEntityAndWait(UnitTest.self, persisted: false) { createdEntity in
-        print("Stay on same thread")
-        XCTAssertFalse(NSThread.isMainThread())
+        XCTAssertFalse(NSThread.isMainThread(), "This should stay on same background thread")
         expectation.fulfill()
       }
     })
@@ -80,8 +76,7 @@ class CreateEntityThreadingTests: XCTestCase {
     context = LiteData.sharedInstance.mainContext
     
     context.createEntity(UnitTest.self, persisted: false) { createdEntity in
-      print("This run on main thread anyway")
-      XCTAssertTrue(NSThread.isMainThread())
+      XCTAssertTrue(NSThread.isMainThread(), "This should run on main thread anyway")
       expectation.fulfill()
     }
     
@@ -92,8 +87,7 @@ class CreateEntityThreadingTests: XCTestCase {
     context = LiteData.sharedInstance.mainContext
     
     context.createEntityAndWait(UnitTest.self, persisted: false) { createdEntity in
-      print("This also run on main thread")
-      XCTAssertTrue(NSThread.isMainThread())
+      XCTAssertTrue(NSThread.isMainThread(), "This should also run on main thread")
     }
   }
   

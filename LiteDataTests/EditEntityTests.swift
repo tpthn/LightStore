@@ -17,12 +17,12 @@ class EditEntityTests: XCTestCase {
     super.setUp()
     
     // make sure we come from empty state
-    context.performBlockAndWait { [weak self, unowned fetchRequest, unowned context] in
+    context.performBlockAndWait { [unowned self] in
       do {
-        guard let fetchResults = try self?.context.executeFetchRequest(fetchRequest) else { XCTFail(); return }
-        self?.unitTest = (fetchResults as? Array)?.first
-        self?.unitTest?.name = "Initial Name"
-        context.safeSave()
+        let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
+        self.unitTest = (fetchResults as? Array)?.first
+        self.unitTest?.name = "Initial Name"
+        self.context.safeSave()
       }
       catch { XCTFail() }
     }
@@ -42,9 +42,9 @@ class EditEntityTests: XCTestCase {
     }
     
     // verify
-    context.performBlock { [weak self, fetchRequest] in
+    context.performBlock { [unowned self] in
       do {
-        guard let fetchResults = try self?.context.executeFetchRequest(fetchRequest) else { XCTFail(); return }
+        let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
         guard let editedUnitTest: UnitTest = (fetchResults as? Array)?.first else { XCTFail(); return }
         
         XCTAssertEqual(editedUnitTest.name, "Edit Entity Asynchronously")

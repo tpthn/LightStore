@@ -18,10 +18,10 @@ class CreateEntityTest: XCTestCase {
     super.setUp()
     
     // make sure we come from empty state
-    context.performBlockAndWait { [weak self, fetchRequest] in
+    context.performBlockAndWait { [unowned self] in
       do {
-        guard let fetchResults = try self?.context.executeFetchRequest(fetchRequest) else { XCTFail(); return }
-        self?.fetchCount = fetchResults.count
+        let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
+        self.fetchCount = fetchResults.count
       }
       catch { XCTFail() }
     }
@@ -40,10 +40,10 @@ class CreateEntityTest: XCTestCase {
     }
     
     // verify
-    context.performBlock { [weak self, fetchRequest, fetchCount] in
+    context.performBlock { [unowned self] in
       do {
-        guard let fetchResults = try self?.context.executeFetchRequest(fetchRequest) else { XCTFail(); return }
-        XCTAssertTrue(fetchResults.count == (fetchCount + 1))
+        let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
+        XCTAssertTrue(fetchResults.count == (self.fetchCount + 1))
         expectation.fulfill()
       }
       catch { XCTFail() }
