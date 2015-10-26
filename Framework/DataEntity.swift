@@ -9,37 +9,6 @@
 import Foundation
 import CoreData
 
-/*
-LiteData.entity(UnitTest.self).add({creatingEntity in
-// entity property goes here
-}).persist({ createdEntity, status in
-// handle newly created entity and / or error here
-})
-
-LiteData.entity(someObject).edit({editingEntity in
-// entity property goes here
-}).persist({ editedEntity, status in
-// handle edited entity and / or error here
-})
-
-LiteData.entity(someObject).delete({ status in
-
-})
-
-LiteData.readEntity(UnitTest.self).fetch(predicateFormat) { results in
-
-}
-
-LiteData.readEntity(UnitTest.self).fetchOne(predicateFormat)
-
-let entity = LiteData.readEntity(UnitTest.self)
-entity.sort(sortDescriptor)
-entity.batch(10)
-entity.fetch(predicateFormat) {results in
-
-}
-*/
-
 class DataEntity<T: NSManagedObject> {
   
   var destinationContext: NSManagedObjectContext?
@@ -58,7 +27,12 @@ class DataEntity<T: NSManagedObject> {
   
   func add(setValue: ((creatingEntity: T) -> ())? ) -> DataEntity<T> {
     destinationContext?.createEntity(T.self, persisted: false) { [weak self] creatingEntity in
-      self?.entity = creatingEntity
+      if let _setValue = setValue {
+        _setValue(creatingEntity: creatingEntity)
+      }
+      
+      guard let strongSelf = self else { return }
+      strongSelf.entity = creatingEntity
     }
     
     return self;
