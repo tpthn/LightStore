@@ -38,7 +38,7 @@ class EditEntityTests: XCTestCase {
     
     guard let _unitTest = unitTest else { XCTFail(); return }
     context.editEntity(_unitTest) { editingEntity in
-      _unitTest.name = "Edit Entity Asynchronously"
+      editingEntity.name = "Edit Entity Asynchronously"
     }
     
     // verify
@@ -54,6 +54,25 @@ class EditEntityTests: XCTestCase {
     }
     
     waitForExpectationsWithTimeout(30, handler: nil)
+  }
+  
+  func testEditEntityAndWait() {
+    guard let _unitTest = unitTest else { XCTFail(); return }
+    
+    context.editEntityAndWait(_unitTest) { editingEntity in
+      editingEntity.name = "Edit Entity Synchronously"
+    }
+    
+    // verify
+    context.performBlockAndWait { [unowned self] in
+      do {
+        let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
+        guard let editedUnitTest: UnitTest = (fetchResults as? Array)?.first else { XCTFail(); return }
+        
+        XCTAssertEqual(editedUnitTest.name, "Edit Entity Synchronously")
+      }
+      catch { XCTFail() }
+    }
   }
   
   // MARK: - Private

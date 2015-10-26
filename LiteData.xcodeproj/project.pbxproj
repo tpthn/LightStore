@@ -24,6 +24,7 @@
 		4F8897481BD0B9290010382C /* ClassDescriptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897471BD0B9290010382C /* ClassDescriptorTests.swift */; settings = {ASSET_TAGS = (); }; };
 		4F88974A1BD0CB220010382C /* CreateEntityThreadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897491BD0CB220010382C /* CreateEntityThreadingTests.swift */; settings = {ASSET_TAGS = (); }; };
 		4FB225421BD9E455005A13A5 /* EditEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB225411BD9E455005A13A5 /* EditEntityTests.swift */; settings = {ASSET_TAGS = (); }; };
+		4FB225501BDE9226005A13A5 /* EditEntityThreadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB2254F1BDE9226005A13A5 /* EditEntityThreadingTests.swift */; settings = {ASSET_TAGS = (); }; };
 		4FF25D2B1BD75F820056C4D4 /* DataEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF25D2A1BD75F820056C4D4 /* DataEntity.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,7 @@
 		4F8897471BD0B9290010382C /* ClassDescriptorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassDescriptorTests.swift; sourceTree = "<group>"; };
 		4F8897491BD0CB220010382C /* CreateEntityThreadingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateEntityThreadingTests.swift; sourceTree = "<group>"; };
 		4FB225411BD9E455005A13A5 /* EditEntityTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditEntityTests.swift; sourceTree = "<group>"; };
+		4FB2254F1BDE9226005A13A5 /* EditEntityThreadingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditEntityThreadingTests.swift; sourceTree = "<group>"; };
 		4FF25D2A1BD75F820056C4D4 /* DataEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataEntity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,6 +141,7 @@
 				4F8897451BD0B8B00010382C /* CreateEntityTests.swift */,
 				4F8897491BD0CB220010382C /* CreateEntityThreadingTests.swift */,
 				4FB225411BD9E455005A13A5 /* EditEntityTests.swift */,
+				4FB2254F1BDE9226005A13A5 /* EditEntityThreadingTests.swift */,
 				4F88971C1BD08D020010382C /* Info.plist */,
 			);
 			path = LiteDataTests;
@@ -321,6 +324,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FB225501BDE9226005A13A5 /* EditEntityThreadingTests.swift in Sources */,
 				4F8897481BD0B9290010382C /* ClassDescriptorTests.swift in Sources */,
 				4F8897461BD0B8B00010382C /* CreateEntityTests.swift in Sources */,
 				4FB225421BD9E455005A13A5 /* EditEntityTests.swift in Sources */,
