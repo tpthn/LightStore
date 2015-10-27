@@ -139,10 +139,7 @@ extension NSManagedObjectContext {
   
   private func editEntityUnsafe<T: NSManagedObject>(entity: T, persisted: Bool = true, setValue: ((editingEntity: T) -> ())? ) {
     
-    guard let localEntity = self.objectRegisteredForID(entity.objectID) else {
-      //TODO: handle non registered objects
-      return;
-    }
+    let localEntity = self.objectWithID(entity.objectID) 
     
     if let setValueBlock = setValue {
       setValueBlock(editingEntity: (localEntity as! T))
@@ -154,10 +151,7 @@ extension NSManagedObjectContext {
   }
   
   private func deleteEntityUnsafe<T: NSManagedObject>(entity: T, persisted: Bool = true) {
-    guard let localEntity = self.objectRegisteredForID(entity.objectID) else {
-      //TODO: handle non registered objects
-      return;
-    }
+    let localEntity = self.objectWithID(entity.objectID)
     
     self.deleteObject(localEntity)
     

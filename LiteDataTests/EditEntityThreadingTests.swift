@@ -13,17 +13,20 @@ import CoreData
 class EditEntityThreadingTests: XCTestCase {
   
   var unitTest: UnitTest?
+  let fetchRequest = NSFetchRequest(entityName: "UnitTest")
   
   override func setUp() {
     super.setUp()
     
-    // get a sample entity for editing
+    /* 
+     * get a sample entity from root context
+     * Then we edit it using background context
+     */
     let rootContext = LiteData.sharedInstance.rootContext
   
     rootContext.performBlockAndWait { [unowned self, unowned rootContext] in
       do {
-        let fetchRequest = NSFetchRequest(entityName: "UnitTest")
-        let fetchResults = try rootContext.executeFetchRequest(fetchRequest)
+        let fetchResults = try rootContext.executeFetchRequest(self.fetchRequest)
         self.unitTest = (fetchResults as? Array)?.first
         self.unitTest?.name = "Initial Name"
         rootContext.safeSave()
@@ -36,9 +39,21 @@ class EditEntityThreadingTests: XCTestCase {
     let expectation = self.expectationWithDescription("Write Async Main Thread")
     context = LiteData.sharedInstance.writeContext()
     
-    context.editEntity(unitTest!, persisted: false) { _ in
+    context.editEntity(unitTest!) { editingEntity in
+      editingEntity.name = "Write Async Main Thread"
       XCTAssertFalse(NSThread.isMainThread(), "This should run on a different thread")
-      expectation.fulfill()
+    }
+    
+    // verify
+    context.performBlock { [unowned self] in
+      do {
+        let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
+        guard let editedUnitTest: UnitTest = (fetchResults as? Array)?.first else { XCTFail(); return }
+        
+        XCTAssertEqual(editedUnitTest.name, "Write Async Main Thread")
+        expectation.fulfill()
+      }
+      catch { XCTFail() }
     }
     
     waitForExpectationsWithTimeout(5, handler: nil)
@@ -47,8 +62,20 @@ class EditEntityThreadingTests: XCTestCase {
   func testWriteSyncMainThread() {
     context = LiteData.sharedInstance.writeContext()
     
-    context.editEntityAndWait(unitTest!, persisted: false) { _ in
+    context.editEntityAndWait(unitTest!) { editingEntity in
+      editingEntity.name = "Write Sync Main Thread"
       XCTAssertTrue(NSThread.isMainThread(), "This should run on main thread")
+    }
+    
+    // verify
+    context.performBlockAndWait { [unowned self] in
+      do {
+        let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
+        guard let editedUnitTest: UnitTest = (fetchResults as? Array)?.first else { XCTFail(); return }
+        
+        XCTAssertEqual(editedUnitTest.name, "Write Sync Main Thread")
+      }
+      catch { XCTFail() }
     }
   }
   
@@ -57,9 +84,21 @@ class EditEntityThreadingTests: XCTestCase {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
       self.context = LiteData.sharedInstance.writeContext()
       
-      self.context.editEntity(self.unitTest!, persisted: false) { _ in
+      self.context.editEntity(self.unitTest!) { editingEntity in
+        editingEntity.name = "Write Async background"
         XCTAssertFalse(NSThread.isMainThread(), "This should spawn out different thread")
-        expectation.fulfill()
+      }
+      
+      // verify
+      self.context.performBlock { [unowned self] in
+        do {
+          let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
+          guard let editedUnitTest: UnitTest = (fetchResults as? Array)?.first else { XCTFail(); return }
+          
+          XCTAssertEqual(editedUnitTest.name, "Write Async background")
+          expectation.fulfill()
+        }
+        catch { XCTFail() }
       }
     })
     
@@ -67,14 +106,27 @@ class EditEntityThreadingTests: XCTestCase {
   }
   
   func testWriteSyncBackground() {
-    let expectation = self.expectationWithDescription("Write Async Background")
+    let expectation = self.expectationWithDescription("Write Sync Background")
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
       self.context = LiteData.sharedInstance.writeContext()
       
-      self.context.editEntityAndWait(self.unitTest!, persisted: false) { _ in
+      self.context.editEntityAndWait(self.unitTest!) { editingEntity in
+        editingEntity.name = "Write Sync Background"
         XCTAssertFalse(NSThread.isMainThread(), "This should stay on same background thread")
-        expectation.fulfill()
       }
+      
+      // verify
+      self.context.performBlockAndWait { [unowned self] in
+        do {
+          let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
+          guard let editedUnitTest: UnitTest = (fetchResults as? Array)?.first else { XCTFail(); return }
+          
+          XCTAssertEqual(editedUnitTest.name, "Write Sync Background")
+        }
+        catch { XCTFail() }
+      }
+      
+      expectation.fulfill()
     })
     
     waitForExpectationsWithTimeout(5, handler: nil)
@@ -86,9 +138,20 @@ class EditEntityThreadingTests: XCTestCase {
     let expectation = self.expectationWithDescription("Main Context Write Async")
     context = LiteData.sharedInstance.mainContext
     
-    context.editEntity(self.unitTest!, persisted: false) { _ in
+    context.editEntity(self.unitTest!) { editingEntity in
+      editingEntity.name = "Main Context Write Async"
       XCTAssertTrue(NSThread.isMainThread(), "This should run on main thread anyway")
-      expectation.fulfill()
+    }
+    
+    context.performBlock { [unowned self] in
+      do {
+        let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
+        guard let editedUnitTest: UnitTest = (fetchResults as? Array)?.first else { XCTFail(); return }
+        
+        XCTAssertEqual(editedUnitTest.name, "Main Context Write Async")
+        expectation.fulfill()
+      }
+      catch { XCTFail() }
     }
     
     waitForExpectationsWithTimeout(5, handler: nil)
@@ -97,8 +160,20 @@ class EditEntityThreadingTests: XCTestCase {
   func testMainContextWriteSync() {
     context = LiteData.sharedInstance.mainContext
     
-    context.editEntityAndWait(self.unitTest!, persisted: false) { _ in
+    context.editEntityAndWait(self.unitTest!) { editingEntity in
+      editingEntity.name = "Main Context Write Sync"
       XCTAssertTrue(NSThread.isMainThread(), "This should also run on main thread")
+    }
+    
+    // verify
+    context.performBlockAndWait { [unowned self] in
+      do {
+        let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
+        guard let editedUnitTest: UnitTest = (fetchResults as? Array)?.first else { XCTFail(); return }
+        
+        XCTAssertEqual(editedUnitTest.name, "Main Context Write Sync")
+      }
+      catch { XCTFail() }
     }
   }
   
