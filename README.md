@@ -86,7 +86,7 @@ adventureBook.persist {
 
 - Get one book
 ``` Swift
-let tomSawyerBook = LiteData.readEntity(Book.self).fetch(predicate)
+let tomSawyerBook = LiteData.readEntity(Book.self).fetchOne(predicate)
 ```
 - Get some book
 ``` Swift
