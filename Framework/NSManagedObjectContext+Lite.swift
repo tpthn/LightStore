@@ -29,7 +29,7 @@ extension NSManagedObjectContext {
     }
   }
   
-  func safeRecursiveSafe() {
+  func safeRecursiveSave() {
     if let _parentContext = parentContext where _parentContext.hasChanges {
       do {
         try _parentContext.save()
@@ -112,7 +112,7 @@ extension NSManagedObjectContext {
     }
     
     parentContext?.performBlockAndWait { [unowned self] in
-      self.safeRecursiveSafe()
+      self.safeRecursiveSave()
     }
   }
 }
@@ -169,7 +169,7 @@ extension NSManagedObjectContext {
      * however, if we ever use these extension with a different moc hierachy setup, warning!
      */
     self.parentContext?.performBlockAndWait { [unowned self] in
-      self.safeRecursiveSafe()
+      self.safeRecursiveSave()
     }
   }
 }
