@@ -12,8 +12,10 @@ import CoreData
 
 class EditEntityThreadingTests: XCTestCase {
   
-  var unitTest: UnitTest?
   let fetchRequest = NSFetchRequest(entityName: "UnitTest")
+  
+  var unitTest: UnitTest?
+  var context: NSManagedObjectContext!
   
   override func setUp() {
     super.setUp()
@@ -176,7 +178,4 @@ class EditEntityThreadingTests: XCTestCase {
       catch { XCTFail() }
     }
   }
-  
-  // MARK: - Private
-  var context: NSManagedObjectContext!
 }

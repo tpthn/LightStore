@@ -11,8 +11,12 @@ import CoreData
 @testable import LiteData
 
 class EditEntityTests: XCTestCase {
+  
+  let context = LiteData.sharedInstance.rootContext
+  let fetchRequest = NSFetchRequest(entityName: "UnitTest")
+  
   var unitTest: UnitTest?
-
+  
   override func setUp() {
     super.setUp()
     
@@ -53,7 +57,7 @@ class EditEntityTests: XCTestCase {
       catch { XCTFail() }
     }
     
-    waitForExpectationsWithTimeout(30, handler: nil)
+    waitForExpectationsWithTimeout(5, handler: nil)
   }
   
   func testEditEntityAndWait() {
@@ -74,18 +78,4 @@ class EditEntityTests: XCTestCase {
       catch { XCTFail() }
     }
   }
-  
-  // MARK: - Private
-  let context = LiteData.sharedInstance.rootContext
-  
-  lazy var testEntity: NSEntityDescription = {
-    let _testEntity = NSEntityDescription.entityForName("UnitTest", inManagedObjectContext: self.context)!
-    return _testEntity
-    }()
-  
-  lazy var fetchRequest: NSFetchRequest = {
-    let _fetchRequest = NSFetchRequest()
-    _fetchRequest.entity = self.testEntity
-    return _fetchRequest
-    }()
 }

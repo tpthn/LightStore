@@ -12,12 +12,31 @@ import CoreData
 
 class CreateEntityThreadingTests: XCTestCase {
   
+  let fetchRequest = NSFetchRequest(entityName: "UnitTest")
+  
+  var context: NSManagedObjectContext!
+  var fetchCount = 0
+  
+  override func setUp() {
+    super.setUp()
+    getCurrentCount()
+  }
+
+  override func tearDown() {
+    super.tearDown()
+  }
+  
   func testWriteAsyncMainThread() {
     let expectation = self.expectationWithDescription("Write Async Main Thread")
     context = LiteData.sharedInstance.writeContext()
     
-    context.createEntity(UnitTest.self, persisted: false) { _ in
-      XCTAssertFalse(NSThread.isMainThread(), "This should run on a different thread")
+    context.createEntity(UnitTest.self) { creatingEntity in
+      XCTAssertFalse(NSThread.isMainThread(), "This should run on a different thread - non blocking")
+      creatingEntity.name = "write async on main thread"
+    }
+  
+    TestUtility.delay(0.5) { [unowned self] in
+      self.verifyAdditonalEntityAndWait()
       expectation.fulfill()
     }
     
@@ -27,9 +46,12 @@ class CreateEntityThreadingTests: XCTestCase {
   func testWriteSyncMainThread() {
     context = LiteData.sharedInstance.writeContext()
     
-    context.createEntityAndWait(UnitTest.self, persisted: false) { _ in
-      XCTAssertTrue(NSThread.isMainThread(), "This should run on main thread")
+    context.createEntityAndWait(UnitTest.self) { creatingEntity in
+      XCTAssertTrue(NSThread.isMainThread(), "This should run on main thread - blocking")
+      creatingEntity.name = "write sync on main thread"
     }
+    
+    verifyAdditonalEntityAndWait()
   }
   
   func testWriteAsyncBackground() {
@@ -37,11 +59,16 @@ class CreateEntityThreadingTests: XCTestCase {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
       self.context = LiteData.sharedInstance.writeContext()
       
-      self.context.createEntity(UnitTest.self, persisted: false) { _ in
+      self.context.createEntity(UnitTest.self) { creatingEntity in
         XCTAssertFalse(NSThread.isMainThread(), "This should spawn out different thread")
-        expectation.fulfill()
+        creatingEntity.name = "write async on background thread"
       }
     })
+    
+    TestUtility.delay(0.5) { [unowned self] in
+      self.verifyAdditonalEntityAndWait()
+      expectation.fulfill()
+    }
     
     waitForExpectationsWithTimeout(5, handler: nil)
   }
@@ -51,10 +78,13 @@ class CreateEntityThreadingTests: XCTestCase {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
       self.context = LiteData.sharedInstance.writeContext()
       
-      self.context.createEntityAndWait(UnitTest.self, persisted: false) { _ in
+      self.context.createEntityAndWait(UnitTest.self) { creatingEntity in
         XCTAssertFalse(NSThread.isMainThread(), "This should stay on same background thread")
-        expectation.fulfill()
+        creatingEntity.name = "Write sync on background thread"
       }
+      
+      self.verifyAdditonalEntityAndWait()
+      expectation.fulfill()
     })
     
     waitForExpectationsWithTimeout(5, handler: nil)
@@ -66,8 +96,13 @@ class CreateEntityThreadingTests: XCTestCase {
     let expectation = self.expectationWithDescription("Main Context Write Async")
     context = LiteData.sharedInstance.mainContext
     
-    context.createEntity(UnitTest.self, persisted: false) { _ in
+    context.createEntity(UnitTest.self) { creatingEntity in
       XCTAssertTrue(NSThread.isMainThread(), "This should run on main thread anyway")
+      creatingEntity.name = "Write Async to Main MOC"
+    }
+    
+    TestUtility.delay(0.5) { [unowned self] in
+      self.verifyAdditonalEntityAndWait()
       expectation.fulfill()
     }
     
@@ -77,11 +112,38 @@ class CreateEntityThreadingTests: XCTestCase {
   func testMainContextWriteSync() {
     context = LiteData.sharedInstance.mainContext
     
-    context.createEntityAndWait(UnitTest.self, persisted: false) { _ in
+    context.createEntityAndWait(UnitTest.self) { creatingEntity in
       XCTAssertTrue(NSThread.isMainThread(), "This should also run on main thread")
+      creatingEntity.name = "Write Sync to Main MOC"
     }
+    
+    self.verifyAdditonalEntityAndWait()
   }
   
-  // MARK: - Private
-  var context: NSManagedObjectContext!
+  // MARK: Private
+  
+  func getCurrentCount() {
+    context = LiteData.sharedInstance.rootContext
+    context.performBlockAndWait { [unowned self] in
+      do {
+        let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
+        self.fetchCount = fetchResults.count
+      }
+      catch { XCTFail() }
+    }
+    
+    print("\(self) Current Count: \(fetchCount)")
+  }
+  
+  func verifyAdditonalEntityAndWait() {
+    context = LiteData.sharedInstance.rootContext
+    context.performBlockAndWait { [unowned self] in
+      do {
+        let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
+        XCTAssertTrue(fetchResults.count == (self.fetchCount + 1))
+        print("\(self) Verify Count: \(fetchResults.count)")
+      }
+      catch { XCTFail() }
+    }
+  }
 }

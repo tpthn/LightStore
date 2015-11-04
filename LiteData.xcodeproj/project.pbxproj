@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F79FC0C1BE18708006543D6 /* DeleteEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F79FC0B1BE18708006543D6 /* DeleteEntityTests.swift */; settings = {ASSET_TAGS = (); }; };
+		4F79FC0E1BE19A9B006543D6 /* TestUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F79FC0D1BE19A9B006543D6 /* TestUtility.swift */; settings = {ASSET_TAGS = (); }; };
 		4F8897031BD08D020010382C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897021BD08D020010382C /* AppDelegate.swift */; };
 		4F8897051BD08D020010382C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897041BD08D020010382C /* ViewController.swift */; };
 		4F8897081BD08D020010382C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F8897061BD08D020010382C /* Main.storyboard */; };
@@ -46,6 +48,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4F79FC0B1BE18708006543D6 /* DeleteEntityTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteEntityTests.swift; sourceTree = "<group>"; };
+		4F79FC0D1BE19A9B006543D6 /* TestUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtility.swift; sourceTree = "<group>"; };
 		4F8896FF1BD08D020010382C /* LiteData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiteData.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F8897021BD08D020010382C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4F8897041BD08D020010382C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -142,7 +146,9 @@
 				4F8897491BD0CB220010382C /* CreateEntityThreadingTests.swift */,
 				4FB225411BD9E455005A13A5 /* EditEntityTests.swift */,
 				4FB2254F1BDE9226005A13A5 /* EditEntityThreadingTests.swift */,
+				4F79FC0B1BE18708006543D6 /* DeleteEntityTests.swift */,
 				4F88971C1BD08D020010382C /* Info.plist */,
+				4F79FC0D1BE19A9B006543D6 /* TestUtility.swift */,
 			);
 			path = LiteDataTests;
 			sourceTree = "<group>";
@@ -326,7 +332,9 @@
 			files = (
 				4FB225501BDE9226005A13A5 /* EditEntityThreadingTests.swift in Sources */,
 				4F8897481BD0B9290010382C /* ClassDescriptorTests.swift in Sources */,
+				4F79FC0E1BE19A9B006543D6 /* TestUtility.swift in Sources */,
 				4F8897461BD0B8B00010382C /* CreateEntityTests.swift in Sources */,
+				4F79FC0C1BE18708006543D6 /* DeleteEntityTests.swift in Sources */,
 				4FB225421BD9E455005A13A5 /* EditEntityTests.swift in Sources */,
 				4F88974A1BD0CB220010382C /* CreateEntityThreadingTests.swift in Sources */,
 			);

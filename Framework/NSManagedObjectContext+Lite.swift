@@ -60,7 +60,7 @@ extension NSManagedObjectContext {
     }
   }
   
-  func deleteEntity<T: NSManagedObject>(entity: T, persisted: Bool) {
+  func deleteEntity<T: NSManagedObject>(entity: T, persisted: Bool = true) {
     
     performBlock { [weak self] in
       guard let strongSelf = self else { return }
