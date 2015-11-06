@@ -46,27 +46,14 @@ class DeleteEntityTests: XCTestCase {
   func testDeleteEntity() {
     let expectation = self.expectationWithDescription("Delete Entity Asynchronously")
     
-    // verify entity exist
-    context.performBlock { [unowned self] in
-      do {
-        let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
-        XCTAssertEqual(fetchResults.count, 1)
-      }
-      catch { XCTFail() }
-    }
+    verifyEntityExist()
     
     // delete
     guard let _unitTest = unitTest else { XCTFail(); return }
     context.deleteEntity(_unitTest)
     
-    // verify entity deleted
-    context.performBlock { [unowned self] in
-      do {
-        let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
-        XCTAssertEqual(fetchResults.count, 0)
-        expectation.fulfill()
-      }
-      catch { XCTFail() }
+    verifyEntityDeletedWithCompletion {
+      expectation.fulfill()
     }
     
     waitForExpectationsWithTimeout(5, handler: nil)
@@ -74,7 +61,17 @@ class DeleteEntityTests: XCTestCase {
   
   func testDeleteEntityAndWait() {
     
-    // verify entity exist
+    verifyEntityExistAndWait()
+    
+    // delete
+    guard let _unitTest = unitTest else { XCTFail(); return }
+    context.deleteEntity(_unitTest)
+    
+    verifyEntityDeletedAndWait()
+  }
+  
+  func verifyEntityExistAndWait() {
+    
     context.performBlockAndWait { [unowned self] in
       do {
         let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
@@ -82,16 +79,35 @@ class DeleteEntityTests: XCTestCase {
       }
       catch { XCTFail() }
     }
+  }
+  
+  func verifyEntityDeletedAndWait() {
     
-    // delete
-    guard let _unitTest = unitTest else { XCTFail(); return }
-    context.deleteEntity(_unitTest)
-    
-    // verify entity deleted
     context.performBlockAndWait { [unowned self] in
       do {
         let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
         XCTAssertEqual(fetchResults.count, 0)
+      }
+      catch { XCTFail() }
+    }
+  }
+  
+  func verifyEntityExist() {
+    context.performBlock { [unowned self] in
+      do {
+        let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
+        XCTAssertEqual(fetchResults.count, 1)
+      }
+      catch { XCTFail() }
+    }
+  }
+  
+  func verifyEntityDeletedWithCompletion(completion: () -> ()) {
+    context.performBlock { [unowned self] in
+      do {
+        let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
+        XCTAssertEqual(fetchResults.count, 0)
+        completion()
       }
       catch { XCTFail() }
     }
