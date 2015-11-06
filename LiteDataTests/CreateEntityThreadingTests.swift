@@ -34,7 +34,8 @@ class CreateEntityThreadingTests: XCTestCase {
       XCTAssertFalse(NSThread.isMainThread(), "This should run on a different thread - non blocking")
       creatingEntity.name = "write async on main thread"
     }
-  
+    
+    // verification happen on different MOC (root MOC) so we need a delay here
     TestUtility.delay(0.5) { [unowned self] in
       self.verifyAdditonalEntityAndWait()
       expectation.fulfill()
@@ -65,6 +66,7 @@ class CreateEntityThreadingTests: XCTestCase {
       }
     })
     
+    // verification happen on different MOC (root MOC) so we need a delay here
     TestUtility.delay(0.5) { [unowned self] in
       self.verifyAdditonalEntityAndWait()
       expectation.fulfill()
@@ -101,6 +103,7 @@ class CreateEntityThreadingTests: XCTestCase {
       creatingEntity.name = "Write Async to Main MOC"
     }
     
+    // verification happen on different MOC (root MOC) so we need a delay here
     TestUtility.delay(0.5) { [unowned self] in
       self.verifyAdditonalEntityAndWait()
       expectation.fulfill()
