@@ -45,16 +45,8 @@ class EditEntityTests: XCTestCase {
       editingEntity.name = "Edit Entity Asynchronously"
     }
     
-    // verify
-    context.performBlock { [unowned self] in
-      do {
-        let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
-        guard let editedUnitTest: UnitTest = (fetchResults as? Array)?.first else { XCTFail(); return }
-        
-        XCTAssertEqual(editedUnitTest.name, "Edit Entity Asynchronously")
-        expectation.fulfill()
-      }
-      catch { XCTFail() }
+    verifyEditedEntity {
+      expectation.fulfill()
     }
     
     waitForExpectationsWithTimeout(5, handler: nil)
@@ -67,7 +59,23 @@ class EditEntityTests: XCTestCase {
       editingEntity.name = "Edit Entity Synchronously"
     }
     
-    // verify
+    verifyEditedEntityAndWait()
+  }
+  
+  func verifyEditedEntity(completion: ()->()) {
+    context.performBlock { [unowned self] in
+      do {
+        let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
+        guard let editedUnitTest: UnitTest = (fetchResults as? Array)?.first else { XCTFail(); return }
+        
+        XCTAssertEqual(editedUnitTest.name, "Edit Entity Asynchronously")
+        completion()
+      }
+      catch { XCTFail() }
+    }
+  }
+  
+  func verifyEditedEntityAndWait() {
     context.performBlockAndWait { [unowned self] in
       do {
         let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
