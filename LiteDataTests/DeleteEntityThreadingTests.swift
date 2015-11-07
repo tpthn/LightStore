@@ -1,8 +1,8 @@
 //
-//  DeleteEntityTests.swift
+//  DeleteEntityThreadingTests.swift
 //  LiteData
 //
-//  Created by PC on 10/28/15.
+//  Created by PC on 11/6/15.
 //  Copyright © 2015 PC. All rights reserved.
 //
 
@@ -10,23 +10,23 @@ import XCTest
 import CoreData
 @testable import LiteData
 
-class DeleteEntityTests: XCTestCase {
-
-  let context = LiteData.sharedInstance.rootContext
+class DeleteEntityThreadingTests: XCTestCase {
   
   var unitTest: UnitTest?
+  var context: NSManagedObjectContext!
   
   lazy var fetchRequest: NSFetchRequest = {
     let _fetchRequest = NSFetchRequest(entityName: "UnitTest")
     let predicate = NSPredicate(format: "name == %@", "To be deleted")
     _fetchRequest.predicate = predicate;
     return _fetchRequest
-    }()
+  }()
   
   override func setUp() {
     super.setUp()
     
     // make sure we have entity to delete
+    context = LiteData.sharedInstance.rootContext
     context.performBlockAndWait { [unowned self] in
       do {
         let fetchRequest = NSFetchRequest(entityName: "UnitTest")
@@ -39,37 +39,29 @@ class DeleteEntityTests: XCTestCase {
     }
   }
   
-  func testDeleteEntity() {
-    let expectation = self.expectationWithDescription("Delete Entity Asynchronously")
+  func testWriteAsyncMainThread() {
     
-    verifyEntityExist()
+    let expectation = self.expectationWithDescription("Write Async Main Thread")
     
-    // delete
-    guard let _unitTest = unitTest else { XCTFail(); return }
-    context.deleteEntity(_unitTest)
+    verifyEntityExistAndWait()
     
-    verifyEntityDeletedWithCompletion {
+    context = LiteData.sharedInstance.writeContext()
+    context.deleteEntity(unitTest!)
+    
+    // verification happen on different MOC (root MOC) so we need a delay here
+    TestUtility.delay(0.5) {
+      self.verifyEntityDeletedAndWait()
       expectation.fulfill()
     }
     
     waitForExpectationsWithTimeout(5, handler: nil)
   }
   
-  func testDeleteEntityAndWait() {
-    
-    verifyEntityExistAndWait()
-    
-    // delete
-    guard let _unitTest = unitTest else { XCTFail(); return }
-    context.deleteEntity(_unitTest)
-    
-    verifyEntityDeletedAndWait()
-  }
-  
   // MARK: Private
   
   func verifyEntityExistAndWait() {
     
+    context = LiteData.sharedInstance.rootContext
     context.performBlockAndWait { [unowned self] in
       do {
         let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
@@ -81,31 +73,11 @@ class DeleteEntityTests: XCTestCase {
   
   func verifyEntityDeletedAndWait() {
     
+    context = LiteData.sharedInstance.rootContext
     context.performBlockAndWait { [unowned self] in
       do {
         let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
         XCTAssertEqual(fetchResults.count, 0)
-      }
-      catch { XCTFail() }
-    }
-  }
-  
-  func verifyEntityExist() {
-    context.performBlock { [unowned self] in
-      do {
-        let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
-        XCTAssertEqual(fetchResults.count, 1)
-      }
-      catch { XCTFail() }
-    }
-  }
-  
-  func verifyEntityDeletedWithCompletion(completion: () -> ()) {
-    context.performBlock { [unowned self] in
-      do {
-        let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
-        XCTAssertEqual(fetchResults.count, 0)
-        completion()
       }
       catch { XCTFail() }
     }

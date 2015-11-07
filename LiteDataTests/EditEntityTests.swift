@@ -19,7 +19,8 @@ class EditEntityTests: XCTestCase {
   
   override func setUp() {
     super.setUp()
-
+    
+    // make sure the original name is different
     context.performBlockAndWait { [unowned self] in
       do {
         let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)

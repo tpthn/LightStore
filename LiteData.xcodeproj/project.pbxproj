@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4F79FC0C1BE18708006543D6 /* DeleteEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F79FC0B1BE18708006543D6 /* DeleteEntityTests.swift */; settings = {ASSET_TAGS = (); }; };
-		4F79FC0E1BE19A9B006543D6 /* TestUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F79FC0D1BE19A9B006543D6 /* TestUtility.swift */; settings = {ASSET_TAGS = (); }; };
+		4F79FC0C1BE18708006543D6 /* DeleteEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F79FC0B1BE18708006543D6 /* DeleteEntityTests.swift */; };
+		4F79FC0E1BE19A9B006543D6 /* TestUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F79FC0D1BE19A9B006543D6 /* TestUtility.swift */; };
 		4F8897031BD08D020010382C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897021BD08D020010382C /* AppDelegate.swift */; };
 		4F8897051BD08D020010382C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897041BD08D020010382C /* ViewController.swift */; };
 		4F8897081BD08D020010382C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F8897061BD08D020010382C /* Main.storyboard */; };
@@ -16,18 +16,19 @@
 		4F88970D1BD08D020010382C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F88970C1BD08D020010382C /* Assets.xcassets */; };
 		4F8897101BD08D020010382C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F88970E1BD08D020010382C /* LaunchScreen.storyboard */; };
 		4F8897261BD08D020010382C /* LiteDataUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897251BD08D020010382C /* LiteDataUITests.swift */; };
-		4F8897351BD08DD60010382C /* LiteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897341BD08DD60010382C /* LiteData.swift */; settings = {ASSET_TAGS = (); }; };
-		4F8897371BD08E180010382C /* NSManagedObject+Lite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897361BD08E180010382C /* NSManagedObject+Lite.swift */; settings = {ASSET_TAGS = (); }; };
-		4F8897391BD08E420010382C /* NSManagedObjectContext+Lite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897381BD08E420010382C /* NSManagedObjectContext+Lite.swift */; settings = {ASSET_TAGS = (); }; };
-		4F88973C1BD0B0450010382C /* ClassDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F88973B1BD0B0450010382C /* ClassDescriptor.swift */; settings = {ASSET_TAGS = (); }; };
-		4F8897401BD0B7720010382C /* UnitTest+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F88973E1BD0B7720010382C /* UnitTest+CoreDataProperties.swift */; settings = {ASSET_TAGS = (); }; };
-		4F8897411BD0B7720010382C /* UnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F88973F1BD0B7720010382C /* UnitTest.swift */; settings = {ASSET_TAGS = (); }; };
-		4F8897461BD0B8B00010382C /* CreateEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897451BD0B8B00010382C /* CreateEntityTests.swift */; settings = {ASSET_TAGS = (); }; };
-		4F8897481BD0B9290010382C /* ClassDescriptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897471BD0B9290010382C /* ClassDescriptorTests.swift */; settings = {ASSET_TAGS = (); }; };
-		4F88974A1BD0CB220010382C /* CreateEntityThreadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897491BD0CB220010382C /* CreateEntityThreadingTests.swift */; settings = {ASSET_TAGS = (); }; };
-		4FB225421BD9E455005A13A5 /* EditEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB225411BD9E455005A13A5 /* EditEntityTests.swift */; settings = {ASSET_TAGS = (); }; };
-		4FB225501BDE9226005A13A5 /* EditEntityThreadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB2254F1BDE9226005A13A5 /* EditEntityThreadingTests.swift */; settings = {ASSET_TAGS = (); }; };
-		4FF25D2B1BD75F820056C4D4 /* DataEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF25D2A1BD75F820056C4D4 /* DataEntity.swift */; settings = {ASSET_TAGS = (); }; };
+		4F8897351BD08DD60010382C /* LiteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897341BD08DD60010382C /* LiteData.swift */; };
+		4F8897371BD08E180010382C /* NSManagedObject+Lite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897361BD08E180010382C /* NSManagedObject+Lite.swift */; };
+		4F8897391BD08E420010382C /* NSManagedObjectContext+Lite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897381BD08E420010382C /* NSManagedObjectContext+Lite.swift */; };
+		4F88973C1BD0B0450010382C /* ClassDescriptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F88973B1BD0B0450010382C /* ClassDescriptor.swift */; };
+		4F8897401BD0B7720010382C /* UnitTest+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F88973E1BD0B7720010382C /* UnitTest+CoreDataProperties.swift */; };
+		4F8897411BD0B7720010382C /* UnitTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F88973F1BD0B7720010382C /* UnitTest.swift */; };
+		4F8897461BD0B8B00010382C /* CreateEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897451BD0B8B00010382C /* CreateEntityTests.swift */; };
+		4F8897481BD0B9290010382C /* ClassDescriptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897471BD0B9290010382C /* ClassDescriptorTests.swift */; };
+		4F88974A1BD0CB220010382C /* CreateEntityThreadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897491BD0CB220010382C /* CreateEntityThreadingTests.swift */; };
+		4F9D1D291BED796900DEADB6 /* DeleteEntityThreadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F9D1D281BED796900DEADB6 /* DeleteEntityThreadingTests.swift */; };
+		4FB225421BD9E455005A13A5 /* EditEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB225411BD9E455005A13A5 /* EditEntityTests.swift */; };
+		4FB225501BDE9226005A13A5 /* EditEntityThreadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FB2254F1BDE9226005A13A5 /* EditEntityThreadingTests.swift */; };
+		4FF25D2B1BD75F820056C4D4 /* DataEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FF25D2A1BD75F820056C4D4 /* DataEntity.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		4F8897451BD0B8B00010382C /* CreateEntityTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateEntityTests.swift; sourceTree = "<group>"; };
 		4F8897471BD0B9290010382C /* ClassDescriptorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassDescriptorTests.swift; sourceTree = "<group>"; };
 		4F8897491BD0CB220010382C /* CreateEntityThreadingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateEntityThreadingTests.swift; sourceTree = "<group>"; };
+		4F9D1D281BED796900DEADB6 /* DeleteEntityThreadingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteEntityThreadingTests.swift; sourceTree = "<group>"; };
 		4FB225411BD9E455005A13A5 /* EditEntityTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditEntityTests.swift; sourceTree = "<group>"; };
 		4FB2254F1BDE9226005A13A5 /* EditEntityThreadingTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditEntityThreadingTests.swift; sourceTree = "<group>"; };
 		4FF25D2A1BD75F820056C4D4 /* DataEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataEntity.swift; sourceTree = "<group>"; };
@@ -141,14 +143,15 @@
 		4F8897191BD08D020010382C /* LiteDataTests */ = {
 			isa = PBXGroup;
 			children = (
+				4F79FC0D1BE19A9B006543D6 /* TestUtility.swift */,
 				4F8897471BD0B9290010382C /* ClassDescriptorTests.swift */,
 				4F8897451BD0B8B00010382C /* CreateEntityTests.swift */,
 				4F8897491BD0CB220010382C /* CreateEntityThreadingTests.swift */,
 				4FB225411BD9E455005A13A5 /* EditEntityTests.swift */,
 				4FB2254F1BDE9226005A13A5 /* EditEntityThreadingTests.swift */,
 				4F79FC0B1BE18708006543D6 /* DeleteEntityTests.swift */,
+				4F9D1D281BED796900DEADB6 /* DeleteEntityThreadingTests.swift */,
 				4F88971C1BD08D020010382C /* Info.plist */,
-				4F79FC0D1BE19A9B006543D6 /* TestUtility.swift */,
 			);
 			path = LiteDataTests;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F9D1D291BED796900DEADB6 /* DeleteEntityThreadingTests.swift in Sources */,
 				4FB225501BDE9226005A13A5 /* EditEntityThreadingTests.swift in Sources */,
 				4F8897481BD0B9290010382C /* ClassDescriptorTests.swift in Sources */,
 				4F79FC0E1BE19A9B006543D6 /* TestUtility.swift in Sources */,

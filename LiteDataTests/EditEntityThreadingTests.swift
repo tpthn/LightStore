@@ -20,6 +20,7 @@ class EditEntityThreadingTests: XCTestCase {
   override func setUp() {
     super.setUp()
     
+    // make sure the original name is different
     context = LiteData.sharedInstance.rootContext
     context.performBlockAndWait { [unowned self] in
       do {
