@@ -19,8 +19,7 @@ class EditEntityTests: XCTestCase {
   
   override func setUp() {
     super.setUp()
-    
-    // make sure we come from empty state
+
     context.performBlockAndWait { [unowned self] in
       do {
         let fetchResults = try self.context.executeFetchRequest(self.fetchRequest)
@@ -30,10 +29,6 @@ class EditEntityTests: XCTestCase {
       }
       catch { XCTFail() }
     }
-  }
-  
-  override func tearDown() {
-    super.tearDown()
   }
 
   func testEditEntity() {

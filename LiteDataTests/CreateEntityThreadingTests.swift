@@ -36,7 +36,7 @@ class CreateEntityThreadingTests: XCTestCase {
     }
     
     // verification happen on different MOC (root MOC) so we need a delay here
-    TestUtility.delay(0.5) { [unowned self] in
+    TestUtility.delay(0.5) {
       self.verifyAdditonalEntityAndWait()
       expectation.fulfill()
     }
@@ -67,7 +67,7 @@ class CreateEntityThreadingTests: XCTestCase {
     })
     
     // verification happen on different MOC (root MOC) so we need a delay here
-    TestUtility.delay(0.5) { [unowned self] in
+    TestUtility.delay(0.5) {
       self.verifyAdditonalEntityAndWait()
       expectation.fulfill()
     }
@@ -104,7 +104,7 @@ class CreateEntityThreadingTests: XCTestCase {
     }
     
     // verification happen on different MOC (root MOC) so we need a delay here
-    TestUtility.delay(0.5) { [unowned self] in
+    TestUtility.delay(0.5) {
       self.verifyAdditonalEntityAndWait()
       expectation.fulfill()
     }
