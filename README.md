@@ -123,6 +123,26 @@ TODO:
 - You can call persist with completion closure or simply call persist(). The completion closure is returned on the background thread. You have the option to dispatch_async back to main thread to perform any UI updates.
 - These are just specs at the moment. This is a WORK IN PROGRESS and TENTATIVE TO CHANGE depends on the technical feasibility
  
-### NSManagedObject Context Layer
+### ManagedObject Context Layer
+This provide the most light weight abstraction around core data write operation. It has interface identical to performBlock and performBlockAndWait api on the NSManagedObjectContext. This allow you to managed the threading and MOC hierachy yourself yet ensure the integrity when modifying object across different threads.
 
-TODO:
+##### Write Operation
+
+- To insert a Book object
+```Swift
+let context = LiteData.sharedInstance.writeContext()
+context.createEntity(Book.self) { creatingBook in
+  creatingEntity.name = "Gulliver's travel"
+  creatingEntity.author = "Mark Twain"
+}
+```
+- If we just want to edit and not persist
+```Swift
+context.editEntity(gulliverBook, persisted: false) { editingBook in 
+  editingBook.publisher = "Travel Publisher"
+}
+```
+- And if we want to delete it
+```Swift
+context.deleteEntity(gulliverBook)
+```
