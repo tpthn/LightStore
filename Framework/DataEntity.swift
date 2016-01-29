@@ -49,6 +49,7 @@ class DataEntity<T: NSManagedObject> {
   func delete() -> DataEntity<T> {
     if let _entity = entity {
       destinationContext?.deleteEntity(_entity, persisted: false)
+      //TODO: we might need to listen to context did save notification to nil out the enity here.
     }
     
     return self;
