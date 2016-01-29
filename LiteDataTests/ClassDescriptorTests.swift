@@ -13,20 +13,20 @@ class ClassDescriptorTests: XCTestCase {
   
   func testClassName() {
     
-    // AnyObject
+    // Objc Object
     var className = ClassDescriptor<NSString>().className
     XCTAssertEqual(className, "NSString")
-    
-    // Any
-    className = ClassDescriptor<String>().className
-    XCTAssertEqual(className, "String")
-    
-    className = ClassDescriptor<Int>().className
-    XCTAssertEqual(className, "Int")
     
     // Objc Primitive
     className = ClassDescriptor<CGFloat>().className
     XCTAssertEqual(className, "CGFloat")
     
+    // Swift Object
+    className = ClassDescriptor<String>().className
+    XCTAssertEqual(className, "String")
+
+    // Swift primitive
+    className = ClassDescriptor<Int>().className
+    XCTAssertEqual(className, "Int")
   }
 }
