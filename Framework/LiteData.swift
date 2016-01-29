@@ -85,16 +85,16 @@ class LiteData {
 
 
 extension LiteData {
-  func entity<T: NSManagedObject>(entity: T) -> DataEntity<T> {
+  class func entity<T: NSManagedObject>(entity: T) -> DataEntity<T> {
     let dataEntity = DataEntity<T>(entity: entity)
-    dataEntity.destinationContext = self.writeContext()
+    dataEntity.destinationContext = LiteData.sharedInstance.writeContext()
     
     return dataEntity
   }
   
-  func entity<T: NSManagedObject>(entityClass: T.Type) -> DataEntity<T> {
+  class func entity<T: NSManagedObject>(entityClass: T.Type) -> DataEntity<T> {
     let dataEntity = DataEntity<T>(entityClass: entityClass)
-    dataEntity.destinationContext = self.writeContext()
+    dataEntity.destinationContext = LiteData.sharedInstance.writeContext()
     
     return dataEntity
   }

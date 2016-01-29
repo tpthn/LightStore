@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4F08B9511C5BF82200A1743C /* LiteDataPersistentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F08B9501C5BF82200A1743C /* LiteDataPersistentTests.swift */; };
 		4F79FC0C1BE18708006543D6 /* DeleteEntityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F79FC0B1BE18708006543D6 /* DeleteEntityTests.swift */; };
 		4F79FC0E1BE19A9B006543D6 /* TestUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F79FC0D1BE19A9B006543D6 /* TestUtility.swift */; };
 		4F8897031BD08D020010382C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8897021BD08D020010382C /* AppDelegate.swift */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4F08B9501C5BF82200A1743C /* LiteDataPersistentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiteDataPersistentTests.swift; sourceTree = "<group>"; };
 		4F79FC0B1BE18708006543D6 /* DeleteEntityTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteEntityTests.swift; sourceTree = "<group>"; };
 		4F79FC0D1BE19A9B006543D6 /* TestUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtility.swift; sourceTree = "<group>"; };
 		4F8896FF1BD08D020010382C /* LiteData.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiteData.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,6 +106,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4F08B94E1C5BF59000A1743C /* NSManagedObjectContext Layer */ = {
+			isa = PBXGroup;
+			children = (
+				4F8897451BD0B8B00010382C /* CreateEntityTests.swift */,
+				4F8897491BD0CB220010382C /* CreateEntityThreadingTests.swift */,
+				4FB225411BD9E455005A13A5 /* EditEntityTests.swift */,
+				4FB2254F1BDE9226005A13A5 /* EditEntityThreadingTests.swift */,
+				4F79FC0B1BE18708006543D6 /* DeleteEntityTests.swift */,
+				4F9D1D281BED796900DEADB6 /* DeleteEntityThreadingTests.swift */,
+			);
+			name = "NSManagedObjectContext Layer";
+			sourceTree = "<group>";
+		};
+		4F08B94F1C5BF5BC00A1743C /* LiteData Layer */ = {
+			isa = PBXGroup;
+			children = (
+				4F08B9501C5BF82200A1743C /* LiteDataPersistentTests.swift */,
+			);
+			name = "LiteData Layer";
+			sourceTree = "<group>";
+		};
 		4F8896F61BD08D010010382C = {
 			isa = PBXGroup;
 			children = (
@@ -143,14 +166,10 @@
 		4F8897191BD08D020010382C /* LiteDataTests */ = {
 			isa = PBXGroup;
 			children = (
+				4F08B94F1C5BF5BC00A1743C /* LiteData Layer */,
+				4F08B94E1C5BF59000A1743C /* NSManagedObjectContext Layer */,
 				4F79FC0D1BE19A9B006543D6 /* TestUtility.swift */,
 				4F8897471BD0B9290010382C /* ClassDescriptorTests.swift */,
-				4F8897451BD0B8B00010382C /* CreateEntityTests.swift */,
-				4F8897491BD0CB220010382C /* CreateEntityThreadingTests.swift */,
-				4FB225411BD9E455005A13A5 /* EditEntityTests.swift */,
-				4FB2254F1BDE9226005A13A5 /* EditEntityThreadingTests.swift */,
-				4F79FC0B1BE18708006543D6 /* DeleteEntityTests.swift */,
-				4F9D1D281BED796900DEADB6 /* DeleteEntityThreadingTests.swift */,
 				4F88971C1BD08D020010382C /* Info.plist */,
 			);
 			path = LiteDataTests;
@@ -337,6 +356,7 @@
 				4FB225501BDE9226005A13A5 /* EditEntityThreadingTests.swift in Sources */,
 				4F8897481BD0B9290010382C /* ClassDescriptorTests.swift in Sources */,
 				4F79FC0E1BE19A9B006543D6 /* TestUtility.swift in Sources */,
+				4F08B9511C5BF82200A1743C /* LiteDataPersistentTests.swift in Sources */,
 				4F8897461BD0B8B00010382C /* CreateEntityTests.swift in Sources */,
 				4F79FC0C1BE18708006543D6 /* DeleteEntityTests.swift in Sources */,
 				4FB225421BD9E455005A13A5 /* EditEntityTests.swift in Sources */,
